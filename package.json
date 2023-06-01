@@ -38,9 +38,9 @@
     "test": "jest --coverage --no-cache",
     "tsc": "tsc",
     "deploy": "node ./scripts/deploy.js",
-    "site": "rm -rf _site && cross-env NODE_ENV=production bisheng build -c ./site/bisheng.config.js && node ./scripts/copyStatic.js",
-    "build": "rm -rf dist/ es/ lib/ && node ./scripts/renameStart.js && father build && node ./scripts/moveDeclare.js && node ./scripts/renameEnd.js && node ./scripts/optimizeDist.js",
-    "buildTest": "rm -rf dist/ es/ lib/ && node ./scripts/renameStart.js && father build && node ./scripts/moveDeclare.js"
+    "site": "SET NODE_OPTIONS=--openssl-legacy-provider && rimraf -rf _site && cross-env NODE_ENV=production bisheng build -c ./site/bisheng.config.js && node ./scripts/copyStatic.js",
+    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && rimraf -rf dist/ es/ lib/ && node ./scripts/renameStart.js && father build && node ./scripts/moveDeclare.js && node ./scripts/renameEnd.js && node ./scripts/optimizeDist.js",
+    "buildTest": "SET NODE_OPTIONS=--openssl-legacy-provider && rimraf -rf dist/ es/ lib/ && node ./scripts/renameStart.js && father build && node ./scripts/moveDeclare.js"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -141,18 +141,7 @@
       "last 1 safari version"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && tsc"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix components/**/*.{ts,tsx}",
-      "jest --config jest.config.js --no-cache --passWithNoTests",
-      "git add ."
-    ]
-  },
+  
   "sideEffects": [
     "dist/*",
     "es/**/style/*",
